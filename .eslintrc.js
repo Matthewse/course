@@ -42,6 +42,7 @@ module.exports = {
         'no-undef': 'warn',
         'i18next/no-literal-string': ['error', { markupOnly: true }],
         'max-len': ['error', { ignoreComments: true }],
+        'no-string-literal': false,
     },
     globals: {
         __IS_DEV__: true,

@@ -13,14 +13,18 @@ export default ({ config }: { config: webpack.Configuration }) => {
     config.resolve?.modules?.push(paths.src);
     config.module?.rules?.push(buildCssLoader(true));
 
-    if (config.module?.rules) {
-        config.module.rules = config.module?.rules?.map((rule: RuleSetRule | "...") => {
-            if (rule !== "..." && /svg/.test(rule.test as string)) {
-                return { ...rule, exclude: /\.svg$/i };
-            }
+    if (config?.module?.rules) {
+        const newConfig = { ...config };
 
-            return rule;
-        });
+        if (newConfig.module) {
+            newConfig.module.rules = config.module?.rules?.map((rule: RuleSetRule | '...') => {
+                if (rule !== '...' && /svg/.test(rule.test as string)) {
+                    return { ...rule, exclude: /\.svg$/i };
+                }
+
+                return rule;
+            });
+        }
     }
 
     config.module?.rules?.push({

@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import path from "path";
+import path from 'path';
 
 export default {
     // All imported modules in your tests should be mocked automatically
@@ -34,7 +34,7 @@ export default {
         'node',
     ],
     modulePaths: [
-        '<rootDir>src'
+        '<rootDir>src',
     ],
     testMatch: [
         '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)',

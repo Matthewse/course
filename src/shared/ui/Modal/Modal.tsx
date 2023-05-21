@@ -1,5 +1,5 @@
 import React, {
-    FC, ReactNode, useCallback, useEffect,
+    FC, ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTheme } from 'app/providers/ThemeProvider';
@@ -11,13 +11,15 @@ interface ModalProps {
     children?: ReactNode;
     isOpen?: boolean;
     onClose?: () => void;
+    lazy?: boolean;
 }
 
 export const Modal: FC<ModalProps> = (props) => {
     const {
-        className, children, isOpen, onClose,
+        className, children, isOpen, onClose, lazy,
     } = props;
 
+    const [isMounted, setIsMounted] = useState(false);
     const { theme } = useTheme();
 
     const closeHandler = useCallback(() => {
@@ -49,9 +51,19 @@ export const Modal: FC<ModalProps> = (props) => {
         };
     }, [isOpen, onKeyDown]);
 
+    useEffect(() => {
+        if (isOpen) {
+            setIsMounted(true);
+        }
+    }, [isOpen]);
+
     const mods: Record<string, boolean> = {
         [cls.opened]: isOpen,
     };
+
+    if (lazy && !isMounted) {
+        return null;
+    }
 
     return (
         <Portal>

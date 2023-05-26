@@ -58,7 +58,7 @@ module.exports = {
             'error',
             {
                 ignoreComments: true,
-                code: 110,
+                code: 120,
             },
         ],
         'no-string-literal': 0,
